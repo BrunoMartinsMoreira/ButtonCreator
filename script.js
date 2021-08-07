@@ -47,8 +47,23 @@ function handleChange(event) {
    const name = event.target.name;
    const value = event.target.value;
    handleStyle[name](value);
+   saveValuesInLocalStorage(name, value)
    showCss();
 }
+
+function saveValuesInLocalStorage(name, value) {
+   localStorage[name] = value
+}
+
+function setValues() {
+   const properties = Object.keys(localStorage);
+   properties.forEach(propertie => {
+      handleStyle[propertie](localStorage[propertie]);
+      controllers.elements[propertie].value = localStorage[propertie];
+      showCss();
+   })
+}
+setValues();
 
 function showCss() {
    textCss.innerHTML = '<span>' + btn.style.cssText
